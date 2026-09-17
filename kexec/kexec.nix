@@ -35,10 +35,6 @@
         '';
     };
   };
-  boot.initrd.postMountCommands = ''
-    mkdir -p /mnt-root/root/.ssh/
-    cp /authorized_keys /mnt-root/root/.ssh/
-  '';
   system.build.kexec_tarball = pkgs.callPackage (pkgs.path + "/nixos/lib/make-system-tarball.nix") {
     storeContents = [
       { object = config.system.build.kexec_script; symlink = "/kexec_nixos"; }
