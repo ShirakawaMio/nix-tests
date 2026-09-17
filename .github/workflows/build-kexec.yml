@@ -1,0 +1,35 @@
+name: Build NixOS kexec ARM64
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: cachix/install-nix-action@v31
+
+      - name: Check architecture
+        run: |
+          uname -m
+          nix --version
+
+      - name: Build kexec tarball
+        run: |
+          nix-build '<nixpkgs/nixos>' \
+            -A config.system.build.kexec_tarball \
+            -I nixos-config="$PWD/kexec/myconfig.nix" \
+            -o result
+
+      - name: Collect artifact
+        run: |
+          mkdir -p out
+          cp -L result/tarball/*.tar.* out/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nixos-kexec-aarch64
+          path: out/
