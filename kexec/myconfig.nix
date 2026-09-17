@@ -11,7 +11,7 @@
     # Use google's public DNS server
     nameservers = [ "8.8.8.8" ];
     interfaces.eth0 = {
-      ipAddress = "79.76.99.173";
+      ipAddress = "10.0.0.59";
       prefixLength = 24;
     };
   };
