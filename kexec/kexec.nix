@@ -14,7 +14,7 @@
       name = "kexec-nixos";
       text = ''
         #!${pkgs.stdenv.shell}
-        export PATH=${pkgs.kexectools}/bin:${pkgs.cpio}/bin:$PATH
+        export PATH=${pkgs.kexec-tools}/bin:${pkgs.cpio}/bin:$PATH
         set -x
         set -e
         cd $(mktemp -d)
